@@ -3,6 +3,13 @@ const { useState, useEffect } = React;
 
 // Main App Component
 function App() {
+    useEffect(() => {
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+    }, []);
+
     return (
         <div className="app">
             <aside className="sidebar">
