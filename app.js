@@ -5,42 +5,35 @@ const { useState, useEffect } = React;
 function App() {
     return (
         <div className="app">
-            {/* Top Navigation Bar */}
-            <nav className="navbar">
-                <div className="nav-left">
-                    <h1 className="logo">FlowGrind</h1>
+            <aside className="sidebar">
+                <img src="logo.png" alt="FlowGrind Logo" className="logo" />
+                
+                <div className="sidebar-section">
+                    <h3>timer</h3>
+                    {/* TODO: Add timer controls */}
                 </div>
-                <div className="nav-right">
-                    <button className="nav-btn">Theme</button>
-                    <button className="nav-btn">Music</button>
+                
+                <div className="sidebar-section">
+                    <h3>goals</h3>
+                    {/* TODO: Add goals */}
                 </div>
-            </nav>
+                
+                <div className="sidebar-section">
+                    <h3>to-do list</h3>
+                    {/* TODO: Add to-do list */}
+                </div>
+            </aside>
 
-            {/* Main Study Room Container */}
-            <div className="study-room">
-                {/* Left Sidebar */}
-                <aside className="sidebar">
-                    <div className="sidebar-section">
-                        <h3>Timer</h3>
-                        {/* TODO: Add timer controls */}
-                    </div>
-                    
-                    <div className="sidebar-section">
-                        <h3>Goals</h3>
-                        {/* TODO: Add goals */}
-                    </div>
-                    
-                    <div className="sidebar-section">
-                        <h3>To-Do List</h3>
-                        {/* TODO: Add to-do list */}
-                    </div>
-                </aside>
+            <div className="main-content">
+                <div className="top-right-buttons">
+                    <button className="nav-btn">themes</button>
+                    <button className="nav-btn">music</button>
+                </div>
 
-                {/* Center - Main Study Area */}
                 <main className="study-area">
                     <div className="center-timer">
                         <h2>25:00</h2>
-                        <p>Focus Time</p>
+                        <p>focus time</p>
                     </div>
                 </main>
             </div>
