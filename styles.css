@@ -104,3 +104,73 @@ body {
     font-size: 4rem;
     color: white;
 }
+
+/* Draggable Timer Window */
+.timer-window {
+    position: absolute;
+    background: #1a1a1a;
+    border: 2px solid #333333;
+    border-radius: 10px;
+    min-width: 300px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    z-index: 100;
+    animation: fadeInScale 0.3s ease-out;
+}
+
+/* Smooth fade-in animation */
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Timer Window Header - draggable area */
+.timer-window-header {
+    background: #333333;
+    padding: 10px 15px;
+    border-radius: 8px 8px 0 0;
+    cursor: move;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    user-select: none;
+}
+
+.timer-window-header:active {
+    cursor: grabbing;
+}
+
+/* Close button */
+.close-btn {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0 5px;
+}
+
+.close-btn:hover {
+    color: #ff4444;
+}
+
+/* Timer Window Content */
+.timer-window-content {
+    padding: 30px;
+    text-align: center;
+}
+
+.timer-window-content h2 {
+    font-size: 3rem;
+    color: white;
+    margin-bottom: 10px;
+}
+
+.timer-window-content p {
+    color: #cccccc;
+}
