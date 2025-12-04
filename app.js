@@ -12,7 +12,7 @@ function App() {
 
     return (
         <div className="app">
-            <aside className="sidebar">
+            <aside className="sidebar" data-aos="fade-right">
                 <img src="logo.png" alt="FlowGrind Logo" className="logo" />
                 
                 <div className="sidebar-section">
@@ -32,7 +32,7 @@ function App() {
             </aside>
 
             <div className="main-content">
-                <div className="top-right-buttons">
+                <div className="top-right-buttons" data-aos="fade-down">
                     <button className="nav-btn">themes</button>
                     <button className="nav-btn">music</button>
                 </div>
