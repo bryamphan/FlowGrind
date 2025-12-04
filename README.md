@@ -1,4 +1,4 @@
-# FlowGrind — Personalized Study App
+# FlowGrind - Personalized Study App
 
 FlowGrind is a simple, customizable study web application designed to help students stay focused, motivated, and consistent when studying for exams or assignments. It creates a personalized solo study room with adjustable themes, timers, sounds, and motivational tools to help users reach a flow state. The app is designed to be lightweight, browser-based, and beginner-friendly, using no external APIs.
 
