@@ -104,6 +104,7 @@ Simple task list to help users track what needs to be completed.
 ## Tech Stack
 - **React** (Front-End)
 - **HTML/CSS/JS**
+- **AOS Library for Animations (https://michalsnik.github.io/aos/)**
 - **No external APIs**
 - **Local state or localStorage for data persistence**
 
