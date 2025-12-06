@@ -37,6 +37,20 @@ function App() {
         { name: 'Anime', path: 'Backgrounds/anh-pham-bx-anim.gif' },
         { name: 'Coffee', path: 'Backgrounds/coffee.gif' }
     ];
+    
+    // Music states
+    const [showMusic, setShowMusic] = useState(false);
+    const [musicPosition, setMusicPosition] = useState({ x: 300, y: 200 });
+    const [isDraggingMusic, setIsDraggingMusic] = useState(false);
+    const [musicDragOffset, setMusicDragOffset] = useState({ x: 0, y: 0 });
+    const [currentTrack, setCurrentTrack] = useState(null);
+    const [isPlaying, setIsPlaying] = useState(false);
+    const audioRef = useRef(null);
+    
+    const musicTracks = [
+        { name: 'Boba Date', path: 'Music/Stream Cafe - Boba Date.mp3' },
+        { name: 'Boy Meets Girl', path: 'Music/Stream Cafe - Boy Meets Girl.mp3' }
+    ];
 
     useEffect(() => {
         AOS.init({
@@ -243,9 +257,64 @@ function App() {
         };
     }, [isDraggingThemes, themesDragOffset]);
     
+    // Handle music dragging
+    const handleMusicMouseDown = (e) => {
+        setIsDraggingMusic(true);
+        setMusicDragOffset({
+            x: e.clientX - musicPosition.x,
+            y: e.clientY - musicPosition.y
+        });
+    };
+
+    const handleMusicMouseMove = (e) => {
+        if (isDraggingMusic) {
+            setMusicPosition({
+                x: e.clientX - musicDragOffset.x,
+                y: e.clientY - musicDragOffset.y
+            });
+        }
+    };
+
+    const handleMusicMouseUp = () => {
+        setIsDraggingMusic(false);
+    };
+
+    useEffect(() => {
+        if (isDraggingMusic) {
+            window.addEventListener('mousemove', handleMusicMouseMove);
+            window.addEventListener('mouseup', handleMusicMouseUp);
+        }
+        return () => {
+            window.removeEventListener('mousemove', handleMusicMouseMove);
+            window.removeEventListener('mouseup', handleMusicMouseUp);
+        };
+    }, [isDraggingMusic, musicDragOffset]);
+    
     // Change background instantly
     const changeBackground = (bgPath) => {
         setCurrentBackground(bgPath);
+    };
+    
+    // Music player functions
+    const playTrack = (track) => {
+        if (currentTrack === track.path && isPlaying) {
+            audioRef.current.pause();
+            setIsPlaying(false);
+        } else {
+            setCurrentTrack(track.path);
+            setIsPlaying(true);
+            setTimeout(() => {
+                audioRef.current.play();
+            }, 100);
+        }
+    };
+    
+    const stopMusic = () => {
+        if (audioRef.current) {
+            audioRef.current.pause();
+            audioRef.current.currentTime = 0;
+            setIsPlaying(false);
+        }
     };
 
     return (
@@ -267,10 +336,13 @@ function App() {
                     <button className="nav-btn theme-btn" onClick={() => setShowThemes(true)}>
                         <img src="themes.png" alt="Themes" />
                     </button>
-                    <button className="nav-btn music-btn">
+                    <button className="nav-btn music-btn" onClick={() => setShowMusic(true)}>
                         <img src="music.png" alt="Music" />
                     </button>
                 </div>
+                
+                {/* Hidden audio element */}
+                <audio ref={audioRef} src={currentTrack} loop />
 
                 <main className="study-area" style={{
                     backgroundImage: `url('${currentBackground}')`
@@ -499,6 +571,50 @@ function App() {
                                         </div>
                                     ))}
                                 </div>
+                            </div>
+                        </div>
+                    )}
+                    
+                    {showMusic && (
+                        <div 
+                            className="timer-window music-window"
+                            style={{
+                                left: `${musicPosition.x}px`,
+                                top: `${musicPosition.y}px`,
+                                minWidth: '350px'
+                            }}
+                        >
+                            <div 
+                                className="timer-window-header"
+                                onMouseDown={handleMusicMouseDown}
+                            >
+                                <span>Music Player</span>
+                                <button 
+                                    className="close-btn"
+                                    onClick={() => setShowMusic(false)}
+                                >
+                                    ✕
+                                </button>
+                            </div>
+                            <div className="timer-window-content">
+                                <p style={{marginBottom: '20px'}}>Choose your study music:</p>
+                                <div className="music-options">
+                                    {musicTracks.map((track, index) => (
+                                        <div 
+                                            key={index}
+                                            className={`music-option ${currentTrack === track.path && isPlaying ? 'playing' : ''}`}
+                                            onClick={() => playTrack(track)}
+                                        >
+                                            <span className="music-icon">{currentTrack === track.path && isPlaying ? '⏸' : '▶'}</span>
+                                            <span className="music-name">{track.name}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                                {isPlaying && (
+                                    <button className="reset-btn" onClick={stopMusic} style={{marginTop: '20px', width: '100%'}}>
+                                        Stop Music
+                                    </button>
+                                )}
                             </div>
                         </div>
                     )}
