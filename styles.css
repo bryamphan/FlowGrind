@@ -1,4 +1,3 @@
-/* Import custom pixel font */
 @font-face {
     font-family: 'Pixel';
     src: url('Fonts/Pixel.ttf') format('truetype');
@@ -13,6 +12,7 @@
 body {
     font-family: 'Pixel', Arial, sans-serif;
     color: white;
+    background: #000000;
 }
 
 /* Main App Container */
@@ -25,10 +25,12 @@ body {
 /* Sidebar */
 .sidebar {
     width: 150px;
-    background: #1a1a1a;
+    background: rgba(26, 26, 26, 0.95);
     padding: 20px;
     display: flex;
     flex-direction: column;
+    position: relative;
+    z-index: 10;
 }
 
 /* Logo Image Styling */
@@ -37,6 +39,18 @@ body {
     max-width: 200px;
     margin-bottom: 30px;
     display: block;
+    animation: pulsateGlow 2s ease-in-out infinite;
+}
+
+/* Glow Animation */
+@keyframes pulsateGlow {
+    0%, 100% {
+        filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.4));
+    }
+    50% {
+        filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.7))
+                drop-shadow(0 0 6px rgba(255, 255, 255, 0.4));
+    }
 }
 
 /* Sidebar Sections */
@@ -46,8 +60,10 @@ body {
 
 /* Section Heading Text */
 .sidebar-section h3 {
-    color: #cccccc;
+    color: white;
     margin-bottom: 10px;
+    text-shadow: 0 0 3px rgba(255, 255, 255, 0.5),
+                 0 0 5px rgba(255, 255, 255, 0.3);
 }
 
 /* Main Content */
@@ -71,27 +87,41 @@ body {
 /* Top-Right Button Styling */
 .nav-btn {
     padding: 10px 20px;
-    background: #333333;
+    background: rgba(26, 26, 26, 0.95);
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    font-family: 'Pixel', Arial, sans-serif;
 }
 
 .nav-btn:hover {
-    background: #555555;
+    background: rgba(51, 51, 51, 0.95);
+}
+
+.theme-btn, .music-btn {
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.theme-btn img, .music-btn img {
+    width: 45px;
+    height: 45px;
+    display: block;
+    animation: pulsateGlow 2s ease-in-out infinite;
 }
 
 /* Center Area */
 .study-area {
     flex: 1;
-    background: url('Backgrounds/alleyway.gif');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
     display: flex;
     align-items: center;
     justify-content: center;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 /* Timer */
@@ -108,9 +138,9 @@ body {
 /* Draggable Timer Window */
 .timer-window {
     position: absolute;
-    background: #1a1a1a;
-    border: 2px solid #333333;
-    border-radius: 10px;
+    background: rgba(26, 26, 26, 0.95);
+    border: 3px solid #000000;
+    border-radius: 0;
     min-width: 300px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
     z-index: 100;
@@ -131,14 +161,16 @@ body {
 
 /* Timer Window Header - draggable area */
 .timer-window-header {
-    background: #333333;
+    background: rgba(51, 51, 51, 0.95);
     padding: 10px 15px;
-    border-radius: 8px 8px 0 0;
+    border-radius: 0;
+    border-bottom: 3px solid #1a1a1a;
     cursor: move;
     display: flex;
     justify-content: space-between;
     align-items: center;
     user-select: none;
+    font-family: 'Pixel', Arial, sans-serif;
 }
 
 .timer-window-header:active {
@@ -147,16 +179,18 @@ body {
 
 /* Close button */
 .close-btn {
-    background: transparent;
-    border: none;
+    background: #ff4444;
+    border: 2px solid #cc0000;
     color: white;
-    font-size: 1.2rem;
+    font-size: 1rem;
     cursor: pointer;
-    padding: 0 5px;
+    padding: 5px 10px;
+    font-family: 'Pixel', Arial, sans-serif;
 }
 
 .close-btn:hover {
-    color: #ff4444;
+    background: #cc0000;
+    border-color: #990000;
 }
 
 /* Timer Window Content */
@@ -169,8 +203,322 @@ body {
     font-size: 3rem;
     color: white;
     margin-bottom: 10px;
+    font-family: 'Pixel', Arial, sans-serif;
 }
 
 .timer-window-content p {
     color: #cccccc;
+    margin-bottom: 20px;
+    font-family: 'Pixel', Arial, sans-serif;
+}
+
+/* Timer Controls */
+.timer-controls {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.time-setter {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.time-setter label {
+    font-size: 0.9rem;
+    color: #cccccc;
+    font-family: 'Pixel', Arial, sans-serif;
+}
+
+.control-buttons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.control-buttons button {
+    width: 30px;
+    height: 30px;
+    background: #333333;
+    color: white;
+    border: 2px solid #1a1a1a;
+    border-radius: 0;
+    cursor: pointer;
+    font-size: 1.2rem;
+    font-family: 'Pixel', Arial, sans-serif;
+}
+
+.control-buttons button:hover {
+    background: #555555;
+    border-color: #333333;
+}
+
+.control-buttons span {
+    min-width: 40px;
+    text-align: center;
+    font-size: 1.1rem;
+    font-family: 'Pixel', Arial, sans-serif;
+}
+
+/* Timer Action Buttons */
+.timer-action-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.start-btn, .pause-btn, .reset-btn {
+    padding: 12px 30px;
+    color: white;
+    border: 3px solid;
+    border-radius: 0;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    font-family: 'Pixel', Arial, sans-serif;
+}
+
+.start-btn {
+    background: #4CAF50;
+    border-color: #2d6a2f;
+}
+
+.start-btn:hover {
+    background: #45a049;
+    border-color: #1e4620;
+}
+
+.pause-btn {
+    background: #ff9800;
+    border-color: #cc7a00;
+}
+
+.pause-btn:hover {
+    background: #e68900;
+    border-color: #995c00;
+}
+
+.reset-btn {
+    background: #333333;
+    border-color: #1a1a1a;
+}
+
+.reset-btn:hover {
+    background: #555555;
+    border-color: #333333;
+}
+
+/* Preset Buttons */
+.preset-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.preset-buttons button {
+    padding: 8px 16px;
+    background: #333333;
+    color: white;
+    border: 2px solid #1a1a1a;
+    border-radius: 0;
+    cursor: pointer;
+    font-family: 'Pixel', Arial, sans-serif;
+}
+
+.preset-buttons button:hover {
+    background: #555555;
+    border-color: #333333;
+}
+
+/* To-Do List Styling */
+.todo-window {
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.category-tabs {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
+
+.category-tab {
+    padding: 8px 12px;
+    background: #333333;
+    border: 2px solid #1a1a1a;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Pixel', Arial, sans-serif;
+}
+
+.category-tab span {
+    cursor: pointer;
+}
+
+.category-tab.active {
+    background: #4CAF50;
+    border-color: #2d6a2f;
+}
+
+.category-tab:hover {
+    background: #555555;
+}
+
+.category-tab.active:hover {
+    background: #45a049;
+}
+
+.delete-category-btn {
+    background: #ff4444;
+    border: 1px solid #cc0000;
+    color: white;
+    padding: 2px 6px;
+    cursor: pointer;
+    font-family: 'Pixel', Arial, sans-serif;
+    font-size: 0.8rem;
+}
+
+.delete-category-btn:hover {
+    background: #cc0000;
+}
+
+.add-category {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.add-category input {
+    flex: 1;
+    padding: 8px;
+    background: #1a1a1a;
+    border: 2px solid #333333;
+    color: white;
+    font-family: 'Pixel', Arial, sans-serif;
+}
+
+.add-category button {
+    padding: 8px 16px;
+    background: #4CAF50;
+    border: 2px solid #2d6a2f;
+    color: white;
+    cursor: pointer;
+    font-family: 'Pixel', Arial, sans-serif;
+}
+
+.add-category button:hover {
+    background: #45a049;
+}
+
+.notes-list {
+    max-height: 300px;
+    overflow-y: auto;
+    margin-bottom: 15px;
+}
+
+.note-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    background: rgba(51, 51, 51, 0.5);
+    border: 2px solid #1a1a1a;
+    margin-bottom: 8px;
+    font-family: 'Pixel', Arial, sans-serif;
+}
+
+.note-item input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.note-item span {
+    flex: 1;
+    color: white;
+}
+
+.note-item span.completed {
+    text-decoration: line-through;
+    color: #888888;
+}
+
+.delete-note-btn {
+    background: #ff4444;
+    border: 2px solid #cc0000;
+    color: white;
+    padding: 4px 8px;
+    cursor: pointer;
+    font-family: 'Pixel', Arial, sans-serif;
+}
+
+.delete-note-btn:hover {
+    background: #cc0000;
+}
+
+.add-note {
+    display: flex;
+    gap: 10px;
+}
+
+.add-note input {
+    flex: 1;
+    padding: 10px;
+    background: #1a1a1a;
+    border: 2px solid #333333;
+    color: white;
+    font-family: 'Pixel', Arial, sans-serif;
+}
+
+.add-note button {
+    padding: 10px 20px;
+}
+
+/* Themes Window Styling */
+.background-options {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.background-option {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 10px;
+    background: rgba(51, 51, 51, 0.5);
+    border: 2px solid #1a1a1a;
+    cursor: pointer;
+    font-family: 'Pixel', Arial, sans-serif;
+    transition: all 0.3s ease;
+}
+
+.background-option:hover {
+    background: rgba(85, 85, 85, 0.7);
+    border-color: #555555;
+}
+
+.background-option.active {
+    background: rgba(76, 175, 80, 0.5);
+    border-color: #4CAF50;
+}
+
+.background-option img {
+    width: 80px;
+    height: 60px;
+    object-fit: cover;
+    border: 2px solid #333333;
+}
+
+.background-option span {
+    flex: 1;
+    color: white;
+    font-size: 1rem;
 }
