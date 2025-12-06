@@ -564,3 +564,36 @@ body {
     color: white;
     font-size: 1rem;
 }
+
+/* Side Panels Container */
+.side-panels-container {
+    position: fixed;
+    right: 20px;
+    top: 80px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    z-index: 100;
+}
+
+/* Side Panels (Themes & Music) */
+.side-panel {
+    width: 350px;
+    background: rgba(26, 26, 26, 0.95);
+    border: 3px solid #000000;
+}
+
+.side-panel-header {
+    background: rgba(51, 51, 51, 0.95);
+    padding: 10px 15px;
+    border-bottom: 3px solid #1a1a1a;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Pixel', Arial, sans-serif;
+}
+
+.side-panel-content {
+    padding: 30px;
+    font-family: 'Pixel', Arial, sans-serif;
+}

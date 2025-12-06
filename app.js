@@ -27,9 +27,6 @@ function App() {
     
     // Themes states
     const [showThemes, setShowThemes] = useState(false);
-    const [themesPosition, setThemesPosition] = useState({ x: 300, y: 150 });
-    const [isDraggingThemes, setIsDraggingThemes] = useState(false);
-    const [themesDragOffset, setThemesDragOffset] = useState({ x: 0, y: 0 });
     const [currentBackground, setCurrentBackground] = useState('Backgrounds/alleyway.gif');
     
     const backgrounds = [
@@ -40,9 +37,6 @@ function App() {
     
     // Music states
     const [showMusic, setShowMusic] = useState(false);
-    const [musicPosition, setMusicPosition] = useState({ x: 300, y: 200 });
-    const [isDraggingMusic, setIsDraggingMusic] = useState(false);
-    const [musicDragOffset, setMusicDragOffset] = useState({ x: 0, y: 0 });
     const [currentTrack, setCurrentTrack] = useState(null);
     const [isPlaying, setIsPlaying] = useState(false);
     const audioRef = useRef(null);
@@ -224,72 +218,6 @@ function App() {
         };
     }, [isDraggingTodo, todoDragOffset]);
     
-    // Handle themes dragging
-    const handleThemesMouseDown = (e) => {
-        setIsDraggingThemes(true);
-        setThemesDragOffset({
-            x: e.clientX - themesPosition.x,
-            y: e.clientY - themesPosition.y
-        });
-    };
-
-    const handleThemesMouseMove = (e) => {
-        if (isDraggingThemes) {
-            setThemesPosition({
-                x: e.clientX - themesDragOffset.x,
-                y: e.clientY - themesDragOffset.y
-            });
-        }
-    };
-
-    const handleThemesMouseUp = () => {
-        setIsDraggingThemes(false);
-    };
-
-    useEffect(() => {
-        if (isDraggingThemes) {
-            window.addEventListener('mousemove', handleThemesMouseMove);
-            window.addEventListener('mouseup', handleThemesMouseUp);
-        }
-        return () => {
-            window.removeEventListener('mousemove', handleThemesMouseMove);
-            window.removeEventListener('mouseup', handleThemesMouseUp);
-        };
-    }, [isDraggingThemes, themesDragOffset]);
-    
-    // Handle music dragging
-    const handleMusicMouseDown = (e) => {
-        setIsDraggingMusic(true);
-        setMusicDragOffset({
-            x: e.clientX - musicPosition.x,
-            y: e.clientY - musicPosition.y
-        });
-    };
-
-    const handleMusicMouseMove = (e) => {
-        if (isDraggingMusic) {
-            setMusicPosition({
-                x: e.clientX - musicDragOffset.x,
-                y: e.clientY - musicDragOffset.y
-            });
-        }
-    };
-
-    const handleMusicMouseUp = () => {
-        setIsDraggingMusic(false);
-    };
-
-    useEffect(() => {
-        if (isDraggingMusic) {
-            window.addEventListener('mousemove', handleMusicMouseMove);
-            window.addEventListener('mouseup', handleMusicMouseUp);
-        }
-        return () => {
-            window.removeEventListener('mousemove', handleMusicMouseMove);
-            window.removeEventListener('mouseup', handleMusicMouseUp);
-        };
-    }, [isDraggingMusic, musicDragOffset]);
-    
     // Change background instantly
     const changeBackground = (bgPath) => {
         setCurrentBackground(bgPath);
@@ -343,6 +271,80 @@ function App() {
                 
                 {/* Hidden audio element */}
                 <audio ref={audioRef} src={currentTrack} loop />
+                
+                {/* Side panels container */}
+                <div className="side-panels-container">
+                    {showThemes && (
+                        <div 
+                            className="side-panel themes-panel"
+                            data-aos="fade-left"
+                            data-aos-duration="500"
+                        >
+                            <div className="side-panel-header">
+                                <span>Themes</span>
+                                <button 
+                                    className="close-btn"
+                                    onClick={() => setShowThemes(false)}
+                                >
+                                    ✕
+                                </button>
+                            </div>
+                            <div className="side-panel-content">
+                                <p style={{marginBottom: '20px'}}>Choose your background:</p>
+                                <div className="background-options">
+                                    {backgrounds.map((bg, index) => (
+                                        <div 
+                                            key={index}
+                                            className={`background-option ${currentBackground === bg.path ? 'active' : ''}`}
+                                            onClick={() => changeBackground(bg.path)}
+                                        >
+                                            <img src={bg.path} alt={bg.name} />
+                                            <span>{bg.name}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                    
+                    {showMusic && (
+                        <div 
+                            className="side-panel music-panel"
+                            data-aos="fade-left"
+                            data-aos-duration="500"
+                        >
+                            <div className="side-panel-header">
+                                <span>Music Player</span>
+                                <button 
+                                    className="close-btn"
+                                    onClick={() => setShowMusic(false)}
+                                >
+                                    ✕
+                                </button>
+                            </div>
+                            <div className="side-panel-content">
+                                <p style={{marginBottom: '20px'}}>Choose your study music:</p>
+                                <div className="music-options">
+                                    {musicTracks.map((track, index) => (
+                                        <div 
+                                            key={index}
+                                            className={`music-option ${currentTrack === track.path && isPlaying ? 'playing' : ''}`}
+                                            onClick={() => playTrack(track)}
+                                        >
+                                            <span className="music-icon">{currentTrack === track.path && isPlaying ? '⏸' : '▶'}</span>
+                                            <span className="music-name">{track.name}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                                {isPlaying && (
+                                    <button className="reset-btn" onClick={stopMusic} style={{marginTop: '20px', width: '100%'}}>
+                                        Stop Music
+                                    </button>
+                                )}
+                            </div>
+                        </div>
+                    )}
+                </div>
 
                 <main className="study-area" style={{
                     backgroundImage: `url('${currentBackground}')`
@@ -532,89 +534,6 @@ function App() {
                                     />
                                     <button className="start-btn" onClick={addNote}>Add</button>
                                 </div>
-                            </div>
-                        </div>
-                    )}
-                    
-                    {showThemes && (
-                        <div 
-                            className="timer-window themes-window"
-                            style={{
-                                left: `${themesPosition.x}px`,
-                                top: `${themesPosition.y}px`,
-                                minWidth: '350px'
-                            }}
-                        >
-                            <div 
-                                className="timer-window-header"
-                                onMouseDown={handleThemesMouseDown}
-                            >
-                                <span>Themes</span>
-                                <button 
-                                    className="close-btn"
-                                    onClick={() => setShowThemes(false)}
-                                >
-                                    ✕
-                                </button>
-                            </div>
-                            <div className="timer-window-content">
-                                <p style={{marginBottom: '20px'}}>Choose your background:</p>
-                                <div className="background-options">
-                                    {backgrounds.map((bg, index) => (
-                                        <div 
-                                            key={index}
-                                            className={`background-option ${currentBackground === bg.path ? 'active' : ''}`}
-                                            onClick={() => changeBackground(bg.path)}
-                                        >
-                                            <img src={bg.path} alt={bg.name} />
-                                            <span>{bg.name}</span>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                        </div>
-                    )}
-                    
-                    {showMusic && (
-                        <div 
-                            className="timer-window music-window"
-                            style={{
-                                left: `${musicPosition.x}px`,
-                                top: `${musicPosition.y}px`,
-                                minWidth: '350px'
-                            }}
-                        >
-                            <div 
-                                className="timer-window-header"
-                                onMouseDown={handleMusicMouseDown}
-                            >
-                                <span>Music Player</span>
-                                <button 
-                                    className="close-btn"
-                                    onClick={() => setShowMusic(false)}
-                                >
-                                    ✕
-                                </button>
-                            </div>
-                            <div className="timer-window-content">
-                                <p style={{marginBottom: '20px'}}>Choose your study music:</p>
-                                <div className="music-options">
-                                    {musicTracks.map((track, index) => (
-                                        <div 
-                                            key={index}
-                                            className={`music-option ${currentTrack === track.path && isPlaying ? 'playing' : ''}`}
-                                            onClick={() => playTrack(track)}
-                                        >
-                                            <span className="music-icon">{currentTrack === track.path && isPlaying ? '⏸' : '▶'}</span>
-                                            <span className="music-name">{track.name}</span>
-                                        </div>
-                                    ))}
-                                </div>
-                                {isPlaying && (
-                                    <button className="reset-btn" onClick={stopMusic} style={{marginTop: '20px', width: '100%'}}>
-                                        Stop Music
-                                    </button>
-                                )}
                             </div>
                         </div>
                     )}
