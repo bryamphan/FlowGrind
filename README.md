@@ -1,6 +1,8 @@
-# FlowGrind - Personalized Study App
+# FlowGrind - Personalized Study Buddy
 
-FlowGrind is a simple, customizable study web application designed to help students stay focused, motivated, and consistent when studying for exams or assignments. It creates a personalized solo study room with adjustable themes, timers, sounds, and motivational tools to help users reach a flow state. The app is designed to be lightweight, browser-based, and beginner-friendly, using no external APIs.
+FlowGrind is a simple, customizable study web application designed to help students stay focused, motivated, and consistent when studying for exams or assignments. It's a personalized solo study room with adjustable themes, timers, sounds, and motivational tools to help users reach a flow state. The app is designed to be lightweight, browser-based, and beginner-friendly, using no external APIs.
+
+Specifically designed for my CPSC 349 (Front-end Development) class, this project is mainly front-end based, with some backend logic to implement the front-end aspects (timers, themes, music, animations, etc).
 
 ---
 
@@ -33,7 +35,7 @@ A customizable study timer (Pomodoro-style) that lets users set their preferred 
 
 ---
 
-### 2. Break Generator
+### 2. Break Generator (In Progress)
 **Functionality:**  
 Provides mini break suggestions to reduce burnout.
 
@@ -58,21 +60,21 @@ Lets users choose from pre-selected themes, colors, and backgrounds.
 
 ---
 
-### 4. Sound / Music Selection
+### 4. Sound / Music Selection (Partially Implemented)
 **Functionality:**  
 Allows users to play relaxing background sounds or playlist-style music.
 
 **User Interaction:**  
-- Toggle sound on/off  
+- Toggle sound on/off
 - Choose between sound options  
 
 **Technical Considerations:**  
 - `.mp3` or `.wav` format  
-- Basic HTML `<audio>` tag or React audio handling  
+- Uses React audio handling
 
 ---
 
-### 5. Affirmation Cards
+### 5. Affirmation Cards (In Progress)
 **Functionality:**  
 Random affirmation cards appear occasionally to motivate users.
 
@@ -90,7 +92,8 @@ Random affirmation cards appear occasionally to motivate users.
 Simple task list to help users track what needs to be completed.
 
 **User Interaction:**  
-- Add, check off, or remove tasks  
+- Add, check off, or remove tasks
+- Creates categories to organize tasks
 
 **Technical Considerations:**  
 - Array of task objects  
@@ -98,8 +101,8 @@ Simple task list to help users track what needs to be completed.
 
 ---
 
-## Tech Stack (Planned)
-- **React** (frontend)
+## Tech Stack
+- **React** (Front-End)
 - **HTML/CSS/JS**
 - **No external APIs**
 - **Local state or localStorage for data persistence**
@@ -107,7 +110,7 @@ Simple task list to help users track what needs to be completed.
 ---
 
 ## Project Goal
-To create a clean, aesthetic, beginner-friendly study tool that encourages consistency and helps students stay focused — without stress, distractions, or clutter.
+To create an aesthetic and beginner-friendly study tool that encourages consistency and helps students stay focused - without stress, distractions, or clutter.
 
 ---
 
